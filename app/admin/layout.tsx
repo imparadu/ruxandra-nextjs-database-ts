@@ -2,7 +2,11 @@
 // app/special/layout.js
 import React from 'react';
 
-export default function SpecialLayout({ children }) {
+type SpecialLayoutProps = {
+  children: React.ReactNode;
+};
+
+export default function SpecialLayout({ children }: SpecialLayoutProps) {
   return (
     <html lang="en">
       <body>
