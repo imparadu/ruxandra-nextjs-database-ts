@@ -2,9 +2,28 @@
 import Image from "next/image";
 import { useState } from "react";
 
+interface Picture {
+  id: number;
+  title: string;
+  price: number;
+  currency: string;
+  imgUrl: string;
+  width: number;
+  height: number;
+  alt: string;
+}
+interface Product {
+  alt: string;
+  imgUrl?: string;
+  width: number;
+  height: number;
+}
 
+interface ProductCardProps {
+  product: Product;
+}
 
-const data = [
+const data: Picture[] = [
   {
     id: 1,
     title: "pic title",
@@ -102,7 +121,7 @@ export default function Page() {
   );
 }
 
-const ProductCard = ({ product }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const fallbackImage = "https://via.placeholder.com/320x480"; // Fallback image URL
   const [imgSrc, setImgSrc] = useState(product.imgUrl || fallbackImage);
 
