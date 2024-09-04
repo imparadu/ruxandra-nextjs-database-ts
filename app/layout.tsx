@@ -1,4 +1,5 @@
 import { Inter } from "next/font/google";
+import { ReactNode } from "react";
 import "./globals.css";
 import Navbar from "./ui/navbar";
 import { josefin } from "./ui/fonts";
@@ -10,7 +11,8 @@ export const metadata = {
   description: "portfolio",
 };
 
-export default function RootLayout({ children }) {
+
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className={`${josefin.className} antialiased`}>
