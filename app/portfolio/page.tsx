@@ -12,6 +12,16 @@ interface Picture {
   height: number;
   alt: string;
 }
+interface Product {
+  alt: string;
+  imgUrl?: string;
+  width: number;
+  height: number;
+}
+
+interface ProductCardProps {
+  product: Product;
+}
 
 const data: Picture[] = [
   {
@@ -111,7 +121,8 @@ export default function Page() {
   );
 }
 
-const ProductCard = ({ product }) => {
+
+const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const fallbackImage = "https://via.placeholder.com/320x480"; // Fallback image URL
   const [imgSrc, setImgSrc] = useState(product.imgUrl || fallbackImage);
 
