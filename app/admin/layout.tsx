@@ -10,7 +10,7 @@ export default function SpecialLayout({ children }: SpecialLayoutProps) {
   return (
     <html lang="en">
       <body>
-        <header>Special Header</header>
+        <header>Special Header from layout</header>
         {children}
       </body>
     </html>
