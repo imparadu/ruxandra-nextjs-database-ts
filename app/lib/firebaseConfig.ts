@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyC781jIZHLETZHzBDgF9fVfwS2uKcc5Wbo",
@@ -19,4 +20,6 @@ const analytics = getAnalytics(app);
 
 // Initialize Firebase Auth
 export const auth = getAuth(app); // Ensure this line is present
+const storage = getStorage(app);
+export { storage };
 export default app; // This line is also necessary
