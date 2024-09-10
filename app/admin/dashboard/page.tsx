@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { ref, uploadBytes } from "firebase/storage";
-import { storage } from "D:/cod/ruxandra-nextjs-database-ts/app/lib/firebaseConfig";
+import { storage } from "@/app/lib/firebaseConfig";
 
 export default function Page() {
   const inputRef = React.useRef<HTMLInputElement | null>(null);
@@ -18,7 +18,7 @@ export default function Page() {
       inputRef.current.files.length > 0
     ) {
       const file = inputRef.current.files[0];
-      console.log(file); // Log the file object
+      console.log(file, "acesta este file"); // Log the file object
 
       // Get the dimensions of the image
       const img = new Image();
@@ -26,6 +26,7 @@ export default function Page() {
       img.onload = () => {
         setImageDimensions({ width: img.width, height: img.height });
       };
+      console.log(file,'asd')
 
       const fileRef = ref(storage, `images/${file.name}`);
       uploadBytes(fileRef, file)
@@ -39,7 +40,6 @@ export default function Page() {
       console.error("No file selected");
     }
   };
-
   return (
     <>
       <div className="justify-center flex flex-col ">

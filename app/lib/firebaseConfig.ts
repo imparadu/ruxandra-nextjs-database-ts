@@ -20,6 +20,5 @@ const analytics = getAnalytics(app);
 
 // Initialize Firebase Auth
 export const auth = getAuth(app); // Ensure this line is present
-const storage = getStorage(app);
-export { storage };
+export const storage = getStorage(app);
 export default app; // This line is also necessary
