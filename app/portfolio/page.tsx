@@ -10,6 +10,7 @@ interface Picture {
   imgUrl: string;
   width: number;
   height: number;
+  // position: number;
   alt: string;
 }
 interface Product {
