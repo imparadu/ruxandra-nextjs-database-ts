@@ -1,9 +1,10 @@
 tutorial storage
 admin dashboard layout:
-- meniu stanga: - 
+   | login fields with login button
+   - > left side nav buttons: [portfolio, sketchbook, shop]
 dashboard:
 1. add pic
-formular upload poza: {
+ upload product: {
   id: number;
   title: string;
   price: number;

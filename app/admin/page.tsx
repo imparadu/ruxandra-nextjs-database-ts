@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { auth } from "../lib/firebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { firebaseConfig } from "../lib/firebaseConfig";
 
 const Auth: React.FC = () => {
   const [email, setEmail] = useState<string>("");

@@ -4,14 +4,13 @@ import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyC781jIZHLETZHzBDgF9fVfwS2uKcc5Wbo",
-  authDomain: "ruxandra-db-ts.firebaseapp.com",
-  projectId: "ruxandra-db-ts",
-  storageBucket: "ruxandra-db-ts.appspot.com",
-  messagingSenderId: "383452694925",
-  appId: "1:383452694925:web:35ade5a554667d307495c4",
-  measurementId: "G-52EZL6LMVB",
+export const firebaseConfig = {
+  apiKey: process.env.NEXT_PUBLIC_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_APP_ID,
 };
 
 // Initialize Firebase

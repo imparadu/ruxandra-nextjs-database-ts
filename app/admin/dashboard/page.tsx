@@ -1,11 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { storage } from "@/app/lib/firebaseConfig";
+import { storage, auth } from "@/app/lib/firebaseConfig";
 
 export default function Page() {
   const inputRef = React.useRef<HTMLInputElement | null>(null);
-//  const [file, setFile] = useState<File | null> (null)
+  //  const [file, setFile] = useState<File | null> (null)
   const [imageDimensions, setImageDimensions] = useState<{
     width: number;
     height: number;
@@ -17,8 +17,7 @@ export default function Page() {
       inputRef.current &&
       inputRef.current.files &&
       inputRef.current.files.length > 0
-    )
-    {
+    ) {
       const file = inputRef.current.files[0];
       console.log(file, "acesta este file"); // Log the file object
 
@@ -29,22 +28,19 @@ export default function Page() {
         setImageDimensions({ width: img.width, height: img.height });
       };
 
-  const fileRef = ref(storage, `portfolio/${file.name}`);
-  const snapshot = await uploadBytes(fileRef, file)
-
-      .then(() => {
-        console.log("File uploaded successfully!");
-        // console.log(snapshot, "asd");
+      const fileRef = ref(storage, `portfolio/${file.name}`);
+      const snapshot = await uploadBytes(fileRef, file)
+        .then(() => {
+          console.log("File uploaded successfully!");
+          // console.log(snapshot, "asd");
         })
         .catch((error) => {
           console.error("Error uploading file:", error);
         });
-        getDownloadURL(ref(storage, `portfolio/Logo_maybe.png`))
-        .then((url) => {
-          console.log(url)
-        })
-      }
-    else {
+      getDownloadURL(ref(storage, `portfolio/Logo_maybe.png`)).then((url) => {
+        console.log(url);
+      });
+    } else {
       console.error("No file selected");
     }
   };
