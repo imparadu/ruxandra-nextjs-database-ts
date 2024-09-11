@@ -1,5 +1,6 @@
 tutorial storage
-env for auth
+admin dashboard layout:
+- meniu stanga: - 
 dashboard:
 1. add pic
 formular upload poza: {
@@ -16,5 +17,7 @@ select pic
 add button
 2. edit
 3. remove
+
+env for auth
 
 css admin, dashboard
