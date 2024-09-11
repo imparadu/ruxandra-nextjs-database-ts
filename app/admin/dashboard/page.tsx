@@ -4,6 +4,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage, auth } from "@/app/lib/firebaseConfig";
 
 export default function Page() {
+  console.log(auth);
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   //  const [file, setFile] = useState<File | null> (null)
   const [imageDimensions, setImageDimensions] = useState<{
