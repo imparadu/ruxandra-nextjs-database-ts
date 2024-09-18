@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { auth } from "../lib/firebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import createTable from "../lib/postres";
 
 const Auth: React.FC = () => {
   const [email, setEmail] = useState<string>("");
