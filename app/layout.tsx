@@ -3,14 +3,17 @@ import { ReactNode } from "react";
 import "./globals.css";
 import Navbar from "./ui/navbar";
 import { josefin } from "./ui/fonts";
+import { Metadata } from "next";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Ruxandra's portfolio",
   description: "portfolio",
+  icons: {
+    icon: "/public/favicon.ico",
+  },
 };
-
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
