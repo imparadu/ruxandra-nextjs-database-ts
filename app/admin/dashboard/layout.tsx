@@ -15,7 +15,9 @@ export default function SpecialLayout({ children }: SpecialLayoutProps) {
         <button>Sketchbook</button>
         <button>Shop</button>
       </div>
+
       {children}
+
     </>
   );
 }
