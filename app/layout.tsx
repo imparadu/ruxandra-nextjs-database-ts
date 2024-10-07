@@ -10,9 +10,6 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Ruxandra's portfolio",
   description: "portfolio",
-  icons: {
-    icon: "/public/favicon.ico",
-  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
