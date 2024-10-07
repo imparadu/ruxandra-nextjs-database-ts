@@ -2,8 +2,9 @@
 import React, { useState } from "react";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage, auth } from "@/app/lib/firebaseConfig";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
-export default function Page() {
+export default function DashboardPage() {
   console.log(auth);
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   //  const [file, setFile] = useState<File | null> (null)
@@ -46,6 +47,7 @@ export default function Page() {
     }
   };
   return (
+    <ProtectedRoute>
     <>
       <div className="justify-center flex flex-col ">
         <h1>Dashboard Page</h1>
@@ -63,5 +65,6 @@ export default function Page() {
         )}
       </div>
     </>
+    </ProtectedRoute>
   );
 }
