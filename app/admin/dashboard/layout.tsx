@@ -1,6 +1,4 @@
-// app/layout.js
-// app/special/layout.js
-import Link from 'next/link';
+import AdminNav from '@/components/AdminNav';
 import React from 'react';
 
 type SpecialLayoutProps = {
@@ -10,12 +8,8 @@ type SpecialLayoutProps = {
 export default function SpecialLayout({ children }: SpecialLayoutProps) {
   return (
     <>
-      <div className="flex flex-col items-start">
-        <Link href="/admin/dashboard/portfolio">Portfolio</Link>
-        <button>Sketchbook</button>
-        <button>Shop</button>
-      </div>
 
+    <AdminNav />
       {children}
 
     </>
