@@ -15,7 +15,7 @@ const Auth: React.FC = () => {
       console.log("User signed in");
 
       // Redirect to /admin/dashboard after successful login
-      router.push("/admin/dashboard");
+      router.push("/admin/portfolio");
     } catch (error) {
       console.error("Error signing in:", error);
     }

@@ -27,6 +27,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "lib/**/*.ts"
-  ],
+, "components/AdminNav.js"  ],
   "exclude": ["node_modules"]
 }
