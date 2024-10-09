@@ -1,11 +1,14 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-import { Picture, Product, data, ProductCardProps } from "../api/add-pet/data_types";
+import {
+  Picture,
+  Product,
+  data,
+  ProductCardProps,
+} from "../api/add-pet/data_types";
 
-
-
-export default function Page() {
+export default function PortfolioPage() {
   return (
     <>
       <div className="justify-center flex flex-col ">

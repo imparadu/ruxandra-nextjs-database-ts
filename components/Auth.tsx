@@ -22,21 +22,30 @@ const Auth: React.FC = () => {
   };
 
   return (
-    <div>
+    <>
+    <div className="flex flex-col w-full max-w-sm mx-auto p-6 bg-white shadow-md rounded-md space-y-4">
       <input
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Email"
+        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
       />
       <input
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
+        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
       />
-      <button onClick={handleSignIn}>Sign In</button>
+      <button
+        onClick={handleSignIn}
+        className="w-full px-4 py-2 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 transition duration-300"
+      >
+        Sign In
+      </button>
     </div>
+    </>
   );
 };
 
