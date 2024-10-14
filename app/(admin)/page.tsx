@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Auth from "../../../components/Auth";
+import Auth from "../../components/Auth";
 
 const LoginPage: React.FC = () => {
   return (

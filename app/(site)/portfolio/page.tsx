@@ -6,7 +6,7 @@ import {
   Product,
   data,
   ProductCardProps,
-} from "../api/add-pet/data_types";
+} from "../../api/add-pet/data_types";
 
 export default function PortfolioPage() {
   return (

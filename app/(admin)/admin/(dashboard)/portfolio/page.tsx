@@ -1,6 +1,6 @@
 "use client";
 import { data, ProductCardProps } from "@/app/api/add-pet/data_types";
-import { ProductCard } from "@/app/portfolio/page";
+import { ProductCard } from "@/app/(site)/portfolio/page";
 import AddPicForm from "@/components/AddPicForm";
 import { AuthProvider } from "@/context/AuthContext";
 

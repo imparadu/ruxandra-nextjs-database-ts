@@ -11,8 +11,3 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     </AuthProvider>
   );
 }
-// import { redirect } from "next/navigation";
-
-// export default function Home() {
-//   redirect("/site");
-// }

@@ -1,8 +1,8 @@
 import { Inter } from "next/font/google";
 import { ReactNode } from "react";
-import "./globals.css";
-import Navbar from "./ui/navbar";
-import { josefin } from "./ui/fonts";
+import "../globals.css";
+import Navbar from "../ui/navbar";
+import { josefin } from "../ui/fonts";
 import { Metadata } from "next";
 import { AuthProvider } from "@/context/AuthContext";
 
