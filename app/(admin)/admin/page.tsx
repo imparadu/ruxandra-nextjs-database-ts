@@ -1,13 +1,16 @@
 "use client";
 
 import React from "react";
+import { AuthProvider } from "@/context/AuthContext";
 import Auth from "../../../components/Auth";
 
 const LoginPage: React.FC = () => {
   return (
-    <div className="flex items-center justify-center h-screen">
-      <Auth />
-    </div>
+    <AuthProvider>
+      <div className="flex items-center justify-center h-screen bg-black">
+        <Auth />
+      </div>
+    </AuthProvider>
   );
 };
 

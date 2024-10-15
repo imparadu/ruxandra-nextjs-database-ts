@@ -1,8 +1,9 @@
 "use client";
-import AdminNav from '@/components/AdminNav';
-import React from 'react';
-import ProtectedRoute from "@/components/ProtectedRoute";
 
+import AdminNav from "@/components/AdminNav";
+import React from "react";
+import ProtectedRoute from "@/components/ProtectedRoute";
+import AddPicForm from "@/components/AddPicForm";
 
 type SpecialLayoutProps = {
   children: React.ReactNode;
@@ -11,13 +12,13 @@ type SpecialLayoutProps = {
 export default function SpecialLayout({ children }: SpecialLayoutProps) {
   return (
     <ProtectedRoute>
-    <>
-
-    <AdminNav />
-      {children}
-
-    </>
-
+      <>
+      <div className="flex flex-row">
+        <AdminNav />
+        {children}
+        <AddPicForm />
+      </div>
+      </>
     </ProtectedRoute>
   );
 }

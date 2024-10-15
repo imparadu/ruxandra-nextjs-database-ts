@@ -14,7 +14,7 @@ export default function Page() {
               return <ProductCard key={product.id} product={product} />;
             })}
           </div>
-          <AddPicForm />
+          {/* <AddPicForm /> */}
           {/* <BackToTopButton /> */}
         </div>
       </>

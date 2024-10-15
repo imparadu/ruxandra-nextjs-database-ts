@@ -23,7 +23,7 @@ const Auth: React.FC = () => {
 
   return (
     <>
-    <div className="flex flex-col w-full max-w-sm mx-auto p-6 bg-white shadow-md rounded-md space-y-4">
+    <div className="flex flex-col w-full max-w-sm mx-auto p-6 bg-white shadow-md rounded-md space-y-4 ">
       <input
         type="email"
         value={email}
