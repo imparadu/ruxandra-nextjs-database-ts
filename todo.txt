@@ -1,24 +1,9 @@
-tutorial storage
-admin dashboard layout:
-   | login fields with login button
-   - > left side nav buttons: [portfolio, sketchbook, shop]
-dashboard:
-1. add pic
- upload product: {
-  id: number;
-  title: string;
-  price: number;
-  currency: string;
-  imgUrl: string;
-  width: number;
-  height: number;
-  alt: string;
-}
-select pic
-add button
-2. edit
-3. remove
+use whimsical wireframe for admin panel:
+- salvam data corect in db
+- preluam poze din db si sa le afisam
+- css formular + dashboard
+- adaugat butonul de upload imagine cu uploadButton component
+- salvat poze in folderul aferent in db
 
-env for auth
 
 css admin, dashboard
