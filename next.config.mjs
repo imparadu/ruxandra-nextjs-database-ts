@@ -4,10 +4,17 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "picsum.photos",
+        hostname: "via.placeholder.com",
         port: "", // Leave empty if not using a specific port
         pathname: "/**", // This allows all paths under the domain
       },
+      {
+        protocol: "https",
+        hostname: "firebasestorage.googleapis.com",
+        port: "",
+        pathname: "/**", // Allow all paths for Firebase storage
+      },
+      // You can add more hostnames in the same way if needed
     ],
   },
 };
