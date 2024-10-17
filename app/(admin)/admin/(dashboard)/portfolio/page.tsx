@@ -18,7 +18,7 @@ interface PortfolioItem {
 export default function Page() {
   const [portfolioData, setPortfolioData] = useState<PortfolioItem[]>([]); // Initialize as an empty array
   const [loading, setLoading] = useState(true); // Loading state
-const fallbackImage = "https://via.placeholder.com/320x480"; 
+  const fallbackImage = "https://via.placeholder.com/320x480";
   useEffect(() => {
     const fetchPortfolio = async () => {
       try {
@@ -42,7 +42,6 @@ const fallbackImage = "https://via.placeholder.com/320x480";
     fetchPortfolio();
   }, []);
 
-
   if (loading) {
     return <p>Loading portfolio...</p>; // Loading message
   }
@@ -51,15 +50,17 @@ const fallbackImage = "https://via.placeholder.com/320x480";
     <AuthProvider>
       <div className="justify-center flex flex-col max-w-lg">
         <div className="xxs:columns-1 xxs:mx-0 xs:columns-1 xs:mx-0 s:columns-2 md:columns-3 lg:columns-4 gap-0 mx-0">
-{portfolioData.map((product) => (
-  <ProductCard
-    key={product.id}
-    product={{
-      ...product,
-      imgurl: product.imgurl?.startsWith("http") ? product.imgurl : fallbackImage,
-    }}
-  />
-))}
+          {portfolioData.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={{
+                ...product,
+                imgurl: product.imgurl?.startsWith("http")
+                  ? product.imgurl
+                  : fallbackImage,
+              }}
+            />
+          ))}
         </div>
       </div>
     </AuthProvider>

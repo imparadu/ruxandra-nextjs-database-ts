@@ -34,7 +34,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         className="p-2"
         onError={handleImageError} // Error handler to replace broken image
       />
-
     </div>
   );
 };
+
