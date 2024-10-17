@@ -1,15 +1,9 @@
 import { sql } from "@vercel/postgres";
 import { NextResponse } from "next/server";
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const title = searchParams.get("title");
-  const price = searchParams.get("price");
-  const currency = searchParams.get("currency");
-  const imgUrl = searchParams.get("imgUrl");
-  const width = searchParams.get("width");
-  const height = searchParams.get("height");
-  const alt = searchParams.get("alt");
+export async function POST(request: Request) {
+  const body = await request.json();
+  const { title, price, currency, imgUrl, width, height, alt } = body;
 
   try {
     // Validate required fields
@@ -34,11 +28,12 @@ export async function GET(request: Request) {
       INSERT INTO portfolio (title, price, currency, imgurl, width, height, alt)
       VALUES (${title}, ${numericPrice}, ${currency}, ${imgUrl}, ${numericWidth}, ${numericHeight}, ${alt});
     `;
+
+    // Fetch all portfolio entries
+    const portfolio = await sql`SELECT * FROM portfolio;`;
+    return NextResponse.json({ portfolio }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
-
-  // Fetch all portfolio entries
-  const portfolio = await sql`SELECT * FROM portfolio;`;
-  return NextResponse.json({ portfolio }, { status: 200 });
 }
+
