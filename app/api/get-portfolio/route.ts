@@ -8,7 +8,6 @@ export async function GET() {
     const portfolio = await sql`SELECT * FROM portfolio;`;
     return NextResponse.json({ portfolio }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ error: error }, { status: 500 });
   }
 }
-
