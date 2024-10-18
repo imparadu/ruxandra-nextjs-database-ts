@@ -13,7 +13,7 @@ export default function SpecialLayout({ children }: SpecialLayoutProps) {
   return (
     <ProtectedRoute>
       <>
-      <div className="flex flex-row">
+      <div className="flex flex-row justify-between">
         <AdminNav />
         {children}
         <AddPicForm />

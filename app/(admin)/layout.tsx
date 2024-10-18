@@ -7,7 +7,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   return (
     <AuthProvider>
       <html lang="en">
-        <body className={`${josefin.className} antialiased`}>{children}</body>
+        <body className={`${josefin.className} antialiased w-full`}>{children}</body>
       </html>
     </AuthProvider>
   );

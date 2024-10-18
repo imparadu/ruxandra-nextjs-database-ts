@@ -3,10 +3,10 @@ import Link from "next/link";
 export default function AdminNav() {
   return (
     <>
-      <div className="flex flex-col items-start">
+      <div className="flex flex-col items-start mr-5 ml-2">
         <Link
           href="/admin/dashboard/portfolio"
-          className="flex min-w-16 min-h-8 align-bottom items-center pl-2 pt-2"
+          className="flex min-w-16 min-h-8 align-bottom items-center pt-2"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -24,7 +24,7 @@ export default function AdminNav() {
             Portfolio
           </p>
         </Link>
-        <button className="flex min-w-16 min-h-8 align-bottom items-center pl-2 pt-2">
+        <button className="flex min-w-16 min-h-8 align-bottom items-center pt-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
@@ -41,7 +41,7 @@ export default function AdminNav() {
             Sketchbook
           </p>
         </button>
-        <button className="flex min-w-16 min-h-8 align-bottom items-center pl-2 pt-2">
+        <button className="flex min-w-16 min-h-8 align-bottom items-center pt-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"

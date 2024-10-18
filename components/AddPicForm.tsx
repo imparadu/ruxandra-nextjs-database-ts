@@ -80,7 +80,7 @@ export default function AddPicForm() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 py-8">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 py-8">\
       <form
         onSubmit={handleUploadAndSave}
         className="flex flex-col w-full max-w-lg bg-white p-6 rounded-lg shadow-lg space-y-4"
