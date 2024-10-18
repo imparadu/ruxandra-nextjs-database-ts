@@ -5,7 +5,7 @@ export default function AdminNav() {
     <>
       <div className="flex flex-col items-start mr-5 ml-2">
         <Link
-          href="/admin/dashboard/portfolio"
+          href="/admin/portfolio"
           className="flex min-w-16 min-h-8 align-bottom items-center pt-2"
         >
           <svg
@@ -24,7 +24,10 @@ export default function AdminNav() {
             Portfolio
           </p>
         </Link>
-        <button className="flex min-w-16 min-h-8 align-bottom items-center pt-2">
+        <Link
+          href="/admin/sketchbook"
+          className="flex min-w-16 min-h-8 align-bottom items-center pt-2"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
@@ -40,8 +43,11 @@ export default function AdminNav() {
           <p className="pl-2 text-blue-500 font-semibold underline underline-offset-4 decoration-indigo-200 decoration-2 hover:decoration-indigo-300 hover:text-blue-700">
             Sketchbook
           </p>
-        </button>
-        <button className="flex min-w-16 min-h-8 align-bottom items-center pt-2">
+        </Link>
+        <Link
+          href="/admin/shop"
+          className="flex min-w-16 min-h-8 align-bottom items-center pt-2"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
@@ -57,7 +63,7 @@ export default function AdminNav() {
           <p className="pl-2 text-blue-500 font-semibold underline underline-offset-4 decoration-indigo-200 decoration-2 hover:decoration-indigo-300 hover:text-blue-700">
             Shop
           </p>
-        </button>
+        </Link>
       </div>
     </>
   );

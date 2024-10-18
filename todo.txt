@@ -3,7 +3,7 @@ use whimsical wireframe for admin panel:
 - preluam poze din db si sa le afisam - DONE
 - css formular + dashboard - DONE
 - adaugat butonul de upload imagine cu uploadButton component - DONE
-- salvat poze in folderul aferent in db
+- salvat poze in folderul aferent in db 
 - timp petrecut in login - cand si de ce logs out
 - functionalitate edit poza - cand se da click pe o poza din baza de date, se populeaza formularul cu metadata si thumbnailul pozei. poti modifica
 metadata si poza
