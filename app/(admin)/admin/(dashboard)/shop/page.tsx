@@ -3,17 +3,7 @@ import { useState, useEffect } from "react";
 import { ProductCard } from "@/components/ProductCard";
 import AddPicForm from "@/components/AddPicForm";
 import { AuthProvider } from "@/context/AuthContext";
-
-interface PortfolioItem {
-  id: number;
-  title: string;
-  price: number;
-  currency: string;
-  imgurl: string;
-  width: number;
-  height: number;
-  alt: string;
-}
+import { PortfolioItem } from "@/app/api/add-pet/data_types";
 
 export default function Page() {
   const [portfolioData, setPortfolioData] = useState<PortfolioItem[]>([]); // Initialize as an empty array

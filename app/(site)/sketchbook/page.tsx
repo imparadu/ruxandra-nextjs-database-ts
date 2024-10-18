@@ -1,144 +1,56 @@
 "use client";
-import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { ProductCard } from "@/components/ProductCard";
+import { PortfolioItem } from "@/app/api/add-pet/data_types";
 
-interface Picture {
-  id: number;
-  title: string;
-  price: number;
-  currency: string;
-  imgUrl: string;
-  width: number;
-  height: number;
-  alt: string;
-}
-interface Product {
-  alt: string;
-  imgUrl?: string;
-  width: number;
-  height: number;
-}
+export default function PortfolioPage() {
+  const [portfolioData, setPortfolioData] = useState<PortfolioItem[]>([]); // Initialize as an empty array
+  const [loading, setLoading] = useState(true); // Loading state
+  const fallbackImage = "https://via.placeholder.com/320x480";
+  useEffect(() => {
+    const fetchPortfolio = async () => {
+      try {
+        const response = await fetch("/api/get-portfolio");
+        const data = await response.json();
 
-interface ProductCardProps {
-  product: Product;
-}
+        console.log("Response data:", data); // Debug log to inspect the structure
 
-const data: Picture[] = [
-  {
-    id: 1,
-    title: "pic title",
-    price: 20,
-    currency: "eur",
-    imgUrl: "https://picsum.photos/360/300",
-    width: 360,
-    height: 300,
-    alt: "random words",
-  },
-  {
-    id: 2,
-    title: "pic title",
-    price: 20,
-    currency: "eur",
-    imgUrl: "https://picsum.photos/500/340",
-    width: 500,
-    height: 340,
-    alt: "random wording",
-  },
-  {
-    id: 3,
-    title: "pic title",
-    price: 20,
-    currency: "eur",
-    imgUrl: "https://picsum.photos/400/400",
-    width: 400,
-    height: 400,
-    alt: "random wording",
-  },
-  {
-    id: 4,
-    title: "pic title",
-    price: 20,
-    currency: "eur",
-    imgUrl: "https://picsum.photos/600/350",
-    width: 800,
-    height: 550,
-    alt: "random wording",
-  },
-  {
-    id: 5,
-    title: "pic title",
-    price: 20,
-    currency: "eur",
-    imgUrl: "https://picsum.photos/240/600",
-    width: 540,
-    height: 600,
-    alt: "random wording",
-  },
-  {
-    id: 6,
-    title: "pic title",
-    price: 20,
-    currency: "eur",
-    imgUrl: "https://picsum.photos/400/300",
-    width: 400,
-    height: 390,
-    alt: "random wording",
-  },
-  {
-    id: 7,
-    title: "pic title",
-    price: 20,
-    currency: "eur",
-    imgUrl: "https://picsum.photos/500/300",
-    width: 500,
-    height: 340,
-    alt: "random wording",
-  },
-  {
-    id: 8,
-    title: "pic title",
-    price: 20,
-    currency: "eur",
-    imgUrl: "https://picsum.photos/480/390",
-    width: 480,
-    height: 390,
-    alt: "random wording",
-  },
-];
+        if (response.ok) {
+          setPortfolioData(data.portfolio.rows); // Access the `rows` array
+        } else {
+          console.error("Error fetching portfolio:", data.error);
+        }
+      } catch (error) {
+        console.error("Error fetching portfolio:", error);
+      } finally {
+        setLoading(false); // Ensure loading state is turned off
+      }
+    };
 
-export default function Page() {
+    fetchPortfolio();
+  }, []);
+
+  if (loading) {
+    return <p>Loading portfolio...</p>; // Loading message
+  }
+
   return (
     <>
-      <div className="justify-center flex flex-col ">
+      <div className="justify-center flex flex-col">
         <div className="xxs:columns-1 xxs:mx-0 xs:columns-1 xs:mx-0 s:columns-2 md:columns-3 lg:columns-4 gap-0 mx-0">
-          {data.map((product) => {
-            return <ProductCard key={product.id} product={product} />;
-          })}
+          {portfolioData.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={{
+                ...product,
+                imgurl: product.imgurl?.startsWith("http")
+                  ? product.imgurl
+                  : fallbackImage,
+              }}
+            />
+          ))}
         </div>
-        {/* <BackToTopButton /> */}
       </div>
     </>
   );
 }
-
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-  const fallbackImage = "https://via.placeholder.com/320x480"; // Fallback image URL
-  const [imgSrc, setImgSrc] = useState(product.imgUrl || fallbackImage);
-
-  const handleImageError = () => {
-    setImgSrc(fallbackImage);
-  };
-
-  return (
-    <div className="">
-      <Image
-        alt={product.alt}
-        src={imgSrc}
-        width={product.width}
-        height={product.height}
-        className="p-2"
-        onError={handleImageError} // Error handler to replace broken image
-      />
-    </div>
-  );
-};
