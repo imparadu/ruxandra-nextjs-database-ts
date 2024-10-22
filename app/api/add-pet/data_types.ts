@@ -21,7 +21,8 @@ export interface Product {
 }
 
 export interface ProductCardProps {
-  product: Product;
+  product: PortfolioItem;
+  onDelete: () => void; // Ensure this is present
 }
 
 export interface PortfolioItem {
@@ -33,4 +34,5 @@ export interface PortfolioItem {
   width: number;
   height: number;
   alt: string;
+  onDelete: () => void; // Ensure this is present
 }

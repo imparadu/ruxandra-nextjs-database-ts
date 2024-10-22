@@ -46,8 +46,9 @@ export default function PortfolioPage() {
                 imgurl: product.imgurl?.startsWith("http")
                   ? product.imgurl
                   : fallbackImage,
-              }}
-            />
+              }} onDelete={function (id: string): void {
+                throw new Error("Function not implemented.");
+              } }            />
           ))}
         </div>
       </div>

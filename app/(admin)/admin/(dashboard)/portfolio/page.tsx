@@ -60,6 +60,7 @@ export default function Page() {
       <div className="justify-center flex flex-col max-w-screen-lg">
         <button onClick={fetchPortfolio}>Refresh Data</button>
 
+
         <div className="xxs:columns-1 xxs:mx-0 xs:columns-1 xs:mx-0 s:columns-2 md:columns-3 lg:columns-4 gap-0 mx-0">
           {portfolioData.map((product) => (
             <ProductCard
