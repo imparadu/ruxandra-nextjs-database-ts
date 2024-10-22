@@ -17,10 +17,11 @@ export default function Page() {
 
   const fetchPortfolio = async () => {
     try {
-      const response = await fetch("/api/get-portfolio");
+      const response = await fetch(`/api/get-portfolio?t=${Date.now()}`);
       const data = await response.json();
 
       if (response.ok) {
+        console.log("Fetched data:", data.portfolio.rows); // Debug log
         setPortfolioData(data.portfolio.rows);
       } else {
         console.error("Error fetching portfolio:", data.error);
@@ -32,15 +33,15 @@ export default function Page() {
     }
   };
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string) => {
     try {
-      const response = await fetch(`/api/delete-portfolio-item/${id}`, {
+      const response = await fetch(`/api/deleteItem/${id}`, {
         method: "DELETE",
       });
 
       if (response.ok) {
-        // Refresh the portfolio data after successful deletion
-        fetchPortfolio();
+        console.log("Item deleted successfully");
+        await fetchPortfolio(); // Refetch data after successful deletion
       } else {
         console.error("Error deleting item:", await response.text());
       }
@@ -53,9 +54,12 @@ export default function Page() {
     return <p>Loading portfolio...</p>;
   }
 
+  console.log(portfolioData);
   return (
     <AuthProvider>
       <div className="justify-center flex flex-col max-w-screen-lg">
+        <button onClick={fetchPortfolio}>Refresh Data</button>
+
         <div className="xxs:columns-1 xxs:mx-0 xs:columns-1 xs:mx-0 s:columns-2 md:columns-3 lg:columns-4 gap-0 mx-0">
           {portfolioData.map((product) => (
             <ProductCard

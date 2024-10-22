@@ -1,10 +1,11 @@
 // components/ProductCard.tsx
 import { useState } from "react";
 import Image from "next/image";
+import { PortfolioItem } from "@/app/api/add-pet/data_types";
 
 interface ProductCardProps {
   product: PortfolioItem;
-  onDelete: (id: number) => void;
+  onDelete: (id: string) => void;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({
@@ -36,10 +37,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         className="w-full h-auto"
       />
       <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-2">
-        <p>{product.title}</p>
-        <p>
-          {product.price} {product.currency}
-        </p>
+        <p>{product.id}</p>
       </div>
       {isSelected && (
         <button

@@ -25,7 +25,7 @@ export interface ProductCardProps {
 }
 
 export interface PortfolioItem {
-  id: number;
+  id: string;
   title: string;
   price: number;
   currency: string;
