@@ -2,7 +2,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import { ProductCard } from "@/components/ProductCard";
-import AddPicForm from "@/components/AddPicForm";
 import { AuthProvider } from "@/context/AuthContext";
 import { PortfolioItem } from "@/app/api/add-pet/data_types";
 
@@ -21,7 +20,7 @@ export default function Page() {
       const data = await response.json();
 
       if (response.ok) {
-        console.log("Fetched data:", data.portfolio.rows); // Debug log
+        console.log("Fetched data: din pagetsx", data.portfolio.rows); // Debug log
         setPortfolioData(data.portfolio.rows);
       } else {
         console.error("Error fetching portfolio:", data.error);
@@ -40,7 +39,7 @@ export default function Page() {
       });
 
       if (response.ok) {
-        console.log("Item deleted successfully");
+        console.log("asta e page.tsx");
         await fetchPortfolio(); // Refetch data after successful deletion
       } else {
         console.error("Error deleting item:", await response.text());
@@ -54,12 +53,10 @@ export default function Page() {
     return <p>Loading portfolio...</p>;
   }
 
-  console.log(portfolioData);
   return (
     <AuthProvider>
       <div className="justify-center flex flex-col max-w-screen-lg">
         <button onClick={fetchPortfolio}>Refresh Data</button>
-
 
         <div className="xxs:columns-1 xxs:mx-0 xs:columns-1 xs:mx-0 s:columns-2 md:columns-3 lg:columns-4 gap-0 mx-0">
           {portfolioData.map((product) => (

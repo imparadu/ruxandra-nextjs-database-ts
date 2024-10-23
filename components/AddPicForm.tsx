@@ -2,6 +2,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "@/app/lib/firebaseConfig";
+import { fetchPortfolio } from "@/app/api/functions/dbFunctions";
 
 export default function AddPicForm() {
   const [formData, setFormData] = useState({
@@ -17,6 +18,7 @@ export default function AddPicForm() {
   const [responseMessage, setResponseMessage] = useState("");
   const [loading, setLoading] = useState(false); // Loading state for better UX
   const inputRef = React.useRef<HTMLInputElement | null>(null);
+  const [portfolioData, setPortfolioData] = useState([]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -27,6 +29,7 @@ export default function AddPicForm() {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+    console.log(file)
     if (file) {
       const img = new window.Image(); // Native browser Image constructor
       img.src = URL.createObjectURL(file);
@@ -70,17 +73,31 @@ export default function AddPicForm() {
         throw new Error(data.error || "Failed to save data");
       } else {
         setResponseMessage("Picture and metadata added successfully!");
+        console.log("data =", data)
+        await fetchPortfolio(); // Refetch data after successful deletion
+        setPortfolioData(data.rows)
       }
     } catch (error) {
       console.error("Error uploading file or saving data:", error);
       setResponseMessage("An error occurred while adding the picture.");
     } finally {
       setLoading(false); // Stop loading state
+      setFormData({
+        title: "",
+        price: "",
+        currency: "",
+        imgUrl: "",
+        width: "",
+        height: "",
+        alt: "",
+      });
+      setThumbnail(null);
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 py-8">\
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 py-8">
+      \
       <form
         onSubmit={handleUploadAndSave}
         className="flex flex-col w-full max-w-lg bg-white p-6 rounded-lg shadow-lg space-y-4"
@@ -165,7 +182,6 @@ export default function AddPicForm() {
           {loading ? "Saving..." : "Save"}
         </button>
       </form>
-
       {responseMessage && (
         <p className="text-center text-red-500 mt-4">{responseMessage}</p>
       )}
