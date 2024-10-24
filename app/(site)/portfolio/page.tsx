@@ -1,3 +1,4 @@
+//C:\coding\ruxandraserbanoiu\ruxandra-nextjs-database-ts\app\(site)\portfolio\page.tsx
 "use client";
 import { useState, useEffect } from "react";
 import { ProductCard } from "@/components/ProductCard";

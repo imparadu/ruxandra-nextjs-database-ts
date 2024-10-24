@@ -29,7 +29,7 @@ export default function AddPicForm() {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    console.log(file)
+    console.log(file);
     if (file) {
       const img = new window.Image(); // Native browser Image constructor
       img.src = URL.createObjectURL(file);
@@ -73,9 +73,9 @@ export default function AddPicForm() {
         throw new Error(data.error || "Failed to save data");
       } else {
         setResponseMessage("Picture and metadata added successfully!");
-        console.log("data =", data)
+        console.log("data =", data);
         await fetchPortfolio(); // Refetch data after successful deletion
-        setPortfolioData(data.rows)
+        setPortfolioData(data.rows); //
       }
     } catch (error) {
       console.error("Error uploading file or saving data:", error);
@@ -92,6 +92,9 @@ export default function AddPicForm() {
         alt: "",
       });
       setThumbnail(null);
+      if (inputRef.current) {
+        inputRef.current.value = "";
+      }
     }
   };
 

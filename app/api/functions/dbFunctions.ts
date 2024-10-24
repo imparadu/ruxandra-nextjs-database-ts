@@ -1,5 +1,4 @@
 "use server";
-import { revalidatePath } from "next/cache";
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL ||
@@ -8,15 +7,7 @@ const API_BASE_URL =
 export async function fetchPortfolio() {
   try {
     const response = await fetch(
-      `${API_BASE_URL}/api/get-portfolio?t=${Date.now()}`,
-      {
-        cache: "no-store",
-        headers: {
-          "Cache-Control": "no-cache, no-store, must-revalidate",
-          "Pragma": "no-cache",
-          "Expires": "0",
-        },
-      },
+      `${API_BASE_URL}/api/get-portfolio`,
     );
     const data = await response.json();
 

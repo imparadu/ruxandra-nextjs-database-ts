@@ -6,12 +6,6 @@ export async function GET() {
     const portfolio = await sql`SELECT * FROM portfolio;`;
     return NextResponse.json(
       { portfolio },
-      {
-        status: 200,
-        headers: {
-          "Cache-Control": "no-store, max-age=0",
-        },
-      },
     );
   } catch (error) {
     return NextResponse.json({ error: error }, { status: 500 });
