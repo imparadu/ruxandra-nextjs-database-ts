@@ -6,6 +6,7 @@ import { AuthProvider } from "@/context/AuthContext";
 import { PortfolioItem } from "@/app/api/add-pet/data_types";
 import { fetchPortfolio } from "@/app/api/functions/dbFunctions";
 import { refreshAdminPanel } from "@/app/api/actions/actions";
+import AddPicForm from "@/components/AddPicForm";
 
 export default function Page() {
   const [portfolioData, setPortfolioData] = useState<PortfolioItem[]>([]);
@@ -30,10 +31,11 @@ export default function Page() {
       });
 
       if (response.ok) {
-        console.log("asta e page.tsx");
+        console.log("Item deleted successfully");
         await loadPortfolio(); // Refetch data after successful deletion
       } else {
-        console.error("Error deleting item:", await response.text());
+        const errorText = await response.text();
+        console.error("Error deleting item:", errorText);
       }
     } catch (error) {
       console.error("Error deleting item:", error);
@@ -41,17 +43,17 @@ export default function Page() {
   };
 
   const handleRefresh = async () => {
-    await refreshAdminPanel();
+    // await refreshAdminPanel();
     loadPortfolio(); // Reload the data after revalidation
   };
 
-  if (loading) {
-    return <p>Loading portfolio...</p>;
-  }
+  // if (loading) {
+  //   return <p>Loading portfolio...</p>;
+  // }
 
   return (
     <AuthProvider>
-      <div className="justify-center flex flex-col max-w-screen-lg">
+      <div className="justify-center flex flex-col">
         <button onClick={handleRefresh}>Refresh Data</button>
         <div className="xxs:columns-1 xxs:mx-0 xs:columns-1 xs:mx-0 s:columns-2 md:columns-3 lg:columns-4 gap-0 mx-0">
           {portfolioData.map((product) => (
@@ -63,11 +65,12 @@ export default function Page() {
                   ? product.imgurl
                   : fallbackImage,
               }}
-              onDelete={handleDelete}
+              onDelete={() => handleDelete(product.id)}
             />
           ))}
         </div>
       </div>
+      <AddPicForm onSave={handleRefresh} />
     </AuthProvider>
   );
 }

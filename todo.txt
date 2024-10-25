@@ -2,13 +2,30 @@ use whimsical wireframe for admin panel:
 - salvam data corect in db - DONE
 - preluam poze din db si sa le afisam - DONE
 - css formular + dashboard - DONE
-- adaugat butonul de upload imagine cu uploadButton component - DONE
-- salvat poze in folderul aferent in db 
+- empty form state after submit - almost DONE - how to empty the input type file text - DONE
+- delete picture - in momentul in care pui o poza la edit sa apara un buton "delete pic" sub butonul de save -> popup dialog - schimbat buton
+- make getportfolio available at admin level
+- onclick pe picture - loadeaza toate datele despre poza respectiva
+- functionalitate edit poza - cand se da click pe o poza din baza de date, se populeaza formularul cu metadata si thumbnailul pozei. poti modifica metadata si poza
 - timp petrecut in login - cand si de ce logs out
-- functionalitate edit poza - cand se da click pe o poza din baza de date, se populeaza formularul cu metadata si thumbnailul pozei. poti modifica
-metadata si poza
-- delete picture - in momentul in care pui o poza la edit sa apara un buton "delete pic" sub butonul de save -> popup dialog de confirmare
+- salvat poze in folderul aferent in db
 - css poze dimensiune mai mare in xxl screen + hover efect pe poze
+
+
+1. refresh la portfolio on adding a picture DONE
+2. sters poze si din bucket on delete - delete rules in firebase de rezolvat - luni
+3. rezolvat orice erori - favicon samd - luni
+4. css main site si admin panel - luni - https://nextjs-shopify-store-ruxandra.vercel.app/
+
+5. livrat ruxandrei si luat feedback - rezolvat probleme/buguri - marti
+
+6. edit
+7. shop
+- product card update
+- cart
+
+
+
 
 
 

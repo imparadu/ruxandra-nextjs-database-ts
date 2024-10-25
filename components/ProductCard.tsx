@@ -23,6 +23,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       onDelete(product.id);
     }
   };
+  console.log(product.width, product.height)
 
   return (
     <div
@@ -34,7 +35,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         alt={product.alt}
         width={product.width}
         height={product.height}
-        className="w-full h-auto"
+        // className="w-full h-full"
       />
       <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-2">
         <p>{product.id}</p>
