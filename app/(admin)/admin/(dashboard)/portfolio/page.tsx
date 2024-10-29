@@ -5,7 +5,6 @@ import { ProductCard } from "@/components/ProductCard";
 import { AuthProvider } from "@/context/AuthContext";
 import { PortfolioItem } from "@/app/api/add-pet/data_types";
 import { fetchPortfolio } from "@/app/api/functions/dbFunctions";
-import { refreshAdminPanel } from "@/app/api/actions/actions";
 import AddPicForm from "@/components/AddPicForm";
 
 export default function Page() {
@@ -53,7 +52,7 @@ export default function Page() {
 
   return (
     <AuthProvider>
-      <div className="justify-center flex flex-col">
+      <div className="justify-center flex flex-col bg-slate-300 max-w-3xl">
         <button onClick={handleRefresh}>Refresh Data</button>
         <div className="xxs:columns-1 xxs:mx-0 xs:columns-1 xs:mx-0 s:columns-2 md:columns-3 lg:columns-4 gap-0 mx-0">
           {portfolioData.map((product) => (
