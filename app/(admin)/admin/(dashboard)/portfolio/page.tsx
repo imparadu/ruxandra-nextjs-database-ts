@@ -34,6 +34,8 @@ interface SortableItemProps {
   product: Picture;
   isEditMode: boolean;
   onDelete: (id: string) => void;
+  onSelect: (product: Picture) => void;
+  isSelected: boolean;
 }
 
 const SortableItem = ({
@@ -41,6 +43,8 @@ const SortableItem = ({
   product,
   isEditMode,
   onDelete,
+  onSelect,
+  isSelected,
 }: SortableItemProps) => {
   const {
     attributes,
@@ -81,7 +85,9 @@ const SortableItem = ({
             ? product.imgurl
             : fallbackImage,
         }}
-        onDelete={() => onDelete(product.id)}
+        onDelete={onDelete}
+        onSelect={onSelect}
+        isSelected={isSelected}
       />
     </div>
   );
@@ -91,6 +97,7 @@ export default function Page() {
   const [portfolioData, setPortfolioData] = useState<Picture[]>([]);
   const [loading, setLoading] = useState(true);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<Picture | null>(null);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -181,6 +188,13 @@ export default function Page() {
   const handleRefresh = async () => {
     loadPortfolio();
   };
+  const handleSelectItem = (product: Picture) => {
+    setSelectedItem(selectedItem?.id === product.id ? null : product);
+  };
+
+  const handleClearSelection = () => {
+    setSelectedItem(null);
+  };
 
   return (
     <AuthProvider>
@@ -227,13 +241,19 @@ export default function Page() {
                   product={product}
                   isEditMode={isEditMode}
                   onDelete={handleDelete}
+                  onSelect={handleSelectItem}
+                  isSelected={selectedItem?.id === product.id}
                 />
               ))}
             </SortableContext>
           </div>
         </DndContext>
       </div>
-      <AddPicForm onSave={handleRefresh} />
+      <AddPicForm
+        onSave={handleRefresh}
+        selectedItem={selectedItem}
+        onClearSelection={() => setSelectedItem(null)}
+      />
     </AuthProvider>
   );
 }

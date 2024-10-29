@@ -9,6 +9,7 @@ export interface Picture {
   alt: string;
   created_at: Date;
   updated_at: Date;
+  position: number;
 }
 
 export type NewPicture = Omit<Picture, "id" | "created_at" | "updated_at">;
@@ -34,5 +35,6 @@ export interface PortfolioItem {
   width: number;
   height: number;
   alt: string;
+  position: number;
   onDelete: () => void; // Ensure this is present
 }
