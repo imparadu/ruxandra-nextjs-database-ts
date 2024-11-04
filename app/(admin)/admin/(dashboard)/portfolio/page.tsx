@@ -36,6 +36,9 @@ interface SortableItemProps {
   onDelete: (id: string) => void;
   onSelect: (product: Picture) => void;
   isSelected: boolean;
+  isMultiSelectMode: boolean;
+  onMultiSelect: (id: string) => void;
+  isMultiSelected: boolean;
 }
 
 const SortableItem = ({
@@ -45,6 +48,9 @@ const SortableItem = ({
   onDelete,
   onSelect,
   isSelected,
+  isMultiSelectMode,
+  onMultiSelect,
+  isMultiSelected,
 }: SortableItemProps) => {
   const {
     attributes,
@@ -67,7 +73,10 @@ const SortableItem = ({
     <div
       ref={setNodeRef}
       style={style}
-      className="relative group break-inside-avoid mb-4"
+      className={`relative group break-inside-avoid mb-4 ${
+        isMultiSelected ? "ring-2 ring-blue-500" : ""
+      }`}
+      onClick={() => isMultiSelectMode && onMultiSelect(id)}
     >
       {isEditMode && (
         <div
@@ -98,6 +107,8 @@ export default function Page() {
   const [loading, setLoading] = useState(true);
   const [isEditMode, setIsEditMode] = useState(false);
   const [selectedItem, setSelectedItem] = useState<Picture | null>(null);
+  const [isMultiSelectMode, setIsMultiSelectMode] = useState(false);
+  const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set());
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -139,6 +150,47 @@ export default function Page() {
     } catch (error) {
       console.error("Error deleting item:", error);
     }
+  };
+
+  const handleMultiDelete = async () => {
+    try {
+      const response = await fetch(
+        `/api/deleteItem/${Array.from(selectedItems)[0]}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ids: Array.from(selectedItems),
+          }),
+        },
+      );
+
+      if (response.ok) {
+        console.log("Items deleted successfully");
+        setSelectedItems(new Set());
+        setIsMultiSelectMode(false);
+        await loadPortfolio();
+      } else {
+        const errorText = await response.text();
+        console.error("Error deleting items:", errorText);
+      }
+    } catch (error) {
+      console.error("Error deleting items:", error);
+    }
+  };
+
+  const handleMultiSelect = (id: string) => {
+    setSelectedItems((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(id)) {
+        newSet.delete(id);
+      } else {
+        newSet.add(id);
+      }
+      return newSet;
+    });
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
@@ -188,28 +240,54 @@ export default function Page() {
   const handleRefresh = async () => {
     loadPortfolio();
   };
+
   const handleSelectItem = (product: Picture) => {
-    setSelectedItem(selectedItem?.id === product.id ? null : product);
+    if (!isMultiSelectMode) {
+      setSelectedItem(selectedItem?.id === product.id ? null : product);
+    }
   };
 
   const handleClearSelection = () => {
     setSelectedItem(null);
   };
 
+  const toggleMultiSelectMode = () => {
+    setIsMultiSelectMode(!isMultiSelectMode);
+    if (isMultiSelectMode) {
+      setSelectedItems(new Set());
+    }
+  };
+
   return (
     <AuthProvider>
       <div className="justify-center flex flex-col bg-slate-300 max-w-3xl">
         <div className="flex justify-between p-4">
-          <button
-            onClick={handleRefresh}
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
-          >
-            Refresh Data
-          </button>
-          <div>
+          <div className="flex gap-2">
+            <button
+              onClick={handleRefresh}
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+            >
+              Refresh Data
+            </button>
+            <button
+              onClick={toggleMultiSelectMode}
+              className="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600 transition-colors"
+            >
+              {isMultiSelectMode ? "Exit Multi-Select" : "Multi-Select"}
+            </button>
+          </div>
+          <div className="flex gap-2">
+            {isMultiSelectMode && selectedItems.size > 0 && (
+              <button
+                onClick={handleMultiDelete}
+                className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
+              >
+                Delete Selected ({selectedItems.size})
+              </button>
+            )}
             <button
               onClick={() => setIsEditMode(!isEditMode)}
-              className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition-colors mr-2"
+              className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition-colors"
             >
               {isEditMode ? "Cancel Edit" : "Edit Mode"}
             </button>
@@ -243,6 +321,9 @@ export default function Page() {
                   onDelete={handleDelete}
                   onSelect={handleSelectItem}
                   isSelected={selectedItem?.id === product.id}
+                  isMultiSelectMode={isMultiSelectMode}
+                  onMultiSelect={handleMultiSelect}
+                  isMultiSelected={selectedItems.has(product.id)}
                 />
               ))}
             </SortableContext>
