@@ -2,7 +2,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { ProductCard } from "@/components/ProductCard";
-import { PortfolioItem } from "@/app/api/add-pet/data_types";
+import { PortfolioItem } from "@/app/api/addItem/data_types";
 import { fetchPortfolio } from "@/app/api/functions/dbFunctions";
 import { refreshAdminPanel } from "@/app/api/actions/actions";
 

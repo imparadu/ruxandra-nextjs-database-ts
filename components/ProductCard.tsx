@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Image from "next/image";
-import { PortfolioItem } from "@/app/api/add-pet/data_types";
+import { PortfolioItem } from "@/app/api/addItem/data_types";
 
 interface ProductCardProps {
   product: PortfolioItem;

@@ -2,7 +2,7 @@ import Image from "next/image";
 import React, { useState, useEffect, useMemo } from "react";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "@/app/lib/firebaseConfig";
-import { PortfolioItem } from "@/app/api/add-pet/data_types";
+import { PortfolioItem } from "@/app/api/addItem/data_types";
 
 interface AddPicFormProps {
   onSave: () => Promise<void>;
@@ -118,7 +118,7 @@ export default function AddPicForm({
 
       const endpoint = selectedItem
         ? `/api/updateItem/${selectedItem.id}`
-        : "/api/add-pet";
+        : "/api/addItem";
 
       const response = await fetch(endpoint, {
         method: selectedItem ? "PUT" : "POST",
