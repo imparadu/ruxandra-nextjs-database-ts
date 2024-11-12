@@ -3,101 +3,76 @@ import { sql } from "@vercel/postgres";
 import { deleteObject, ref } from "firebase/storage";
 import { storage } from "@/app/lib/firebaseConfig";
 
-interface RouteParams {
-  params: Promise<{ id: string }>;
-}
+type RouteContext = {
+  params: {
+    id: string;
+  };
+};
 
-export async function DELETE(request: NextRequest, context: RouteParams) {
+export async function DELETE(request: NextRequest, { params }: RouteContext) {
   try {
     // Check if it's a batch delete request
     const contentType = request.headers.get("content-type");
+    let ids: string[] = [];
+
     if (contentType?.includes("application/json")) {
-      const { ids } = await request.json();
-      if (Array.isArray(ids) && ids.length > 0) {
-        const query = `
-          SELECT id, imgurl
-          FROM portfolio
-          WHERE id = ANY($1::uuid[])
-        `;
-
-        const { rows } = await sql.query(query, [ids]);
-
-        if (rows.length === 0) {
-          return NextResponse.json(
-            { message: "No items found" },
-            { status: 404 },
-          );
-        }
-
-        // Delete from database
-        const deleteQuery = `
-          DELETE FROM portfolio
-          WHERE id = ANY($1::uuid[])
-        `;
-
-        await sql.query(deleteQuery, [ids]);
-
-        // Delete from Firebase Storage
-        const deletePromises = rows.map(async (row) => {
-          try {
-            const imageRef = ref(storage, row.imgurl);
-            await deleteObject(imageRef);
-            console.log(`Image ${row.id} deleted from Firebase Storage`);
-          } catch (firebaseError) {
-            console.error(
-              `Error deleting image ${row.id} from Firebase:`,
-              firebaseError,
-            );
+      try {
+        const body = await request.text();
+        if (body) {
+          const { ids: batchIds } = JSON.parse(body);
+          if (Array.isArray(batchIds) && batchIds.length > 0) {
+            ids = batchIds;
           }
-        });
-
-        await Promise.all(deletePromises);
-
-        return NextResponse.json(
-          { message: "Items deleted successfully" },
-          { status: 200 },
-        );
+        }
+      } catch (e) {
+        console.error("Error parsing JSON:", e);
       }
     }
 
-    // Handle single item delete
-    // Wait for the params to be available
-    const { id } = await context.params;
-
-    if (!id) {
-      return NextResponse.json({ message: "No ID provided" }, { status: 400 });
+    // If no batch IDs, use the single ID from params
+    if (ids.length === 0) {
+      ids = [params.id];
     }
 
-    // Query to get the image URL
-    const result = await sql`
-      SELECT imgurl
+    // Query to get the image URLs
+    const selectQuery = `
+      SELECT id, imgurl
       FROM portfolio
-      WHERE id = ${id}::uuid
+      WHERE id = ANY($1::uuid[])
     `;
 
-    if (result.rows.length === 0) {
-      return NextResponse.json({ message: "Item not found" }, { status: 404 });
-    }
+    const { rows } = await sql.query(selectQuery, [ids]);
 
-    const imgUrl = result.rows[0].imgurl;
+    if (rows.length === 0) {
+      return NextResponse.json({ message: "No items found" }, { status: 404 });
+    }
 
     // Delete from database
-    await sql`
+    const deleteQuery = `
       DELETE FROM portfolio
-      WHERE id = ${id}::uuid
+      WHERE id = ANY($1::uuid[])
     `;
 
+    await sql.query(deleteQuery, [ids]);
+
     // Delete from Firebase Storage
-    try {
-      const imageRef = ref(storage, imgUrl);
-      await deleteObject(imageRef);
-      console.log("Image deleted from Firebase Storage");
-    } catch (firebaseError) {
-      console.error("Error deleting image from Firebase:", firebaseError);
-    }
+    const deletePromises = rows.map(async (row) => {
+      try {
+        const imageRef = ref(storage, row.imgurl);
+        await deleteObject(imageRef);
+        console.log(`Image ${row.id} deleted from Firebase Storage`);
+      } catch (firebaseError) {
+        console.error(
+          `Error deleting image ${row.id} from Firebase:`,
+          firebaseError,
+        );
+      }
+    });
+
+    await Promise.all(deletePromises);
 
     return NextResponse.json(
-      { message: "Item deleted successfully" },
+      { message: "Items deleted successfully" },
       { status: 200 },
     );
   } catch (error) {

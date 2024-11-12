@@ -139,44 +139,51 @@ export default function Page() {
     try {
       const response = await fetch(`/api/deleteItem/${id}`, {
         method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
 
-      if (response.ok) {
-        console.log("Item deleted successfully");
-        await loadPortfolio();
-      } else {
-        const errorText = await response.text();
-        console.error("Error deleting item:", errorText);
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error("Error deleting item:", data.message);
+        return;
       }
+
+      console.log(data.message);
+      await loadPortfolio();
     } catch (error) {
       console.error("Error deleting item:", error);
     }
   };
 
   const handleMultiDelete = async () => {
-    try {
-      const response = await fetch(
-        `/api/deleteItem/${Array.from(selectedItems)[0]}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            ids: Array.from(selectedItems),
-          }),
-        },
-      );
+    if (selectedItems.size === 0) return;
 
-      if (response.ok) {
-        console.log("Items deleted successfully");
-        setSelectedItems(new Set());
-        setIsMultiSelectMode(false);
-        await loadPortfolio();
-      } else {
-        const errorText = await response.text();
-        console.error("Error deleting items:", errorText);
+    try {
+      const firstId = Array.from(selectedItems)[0];
+      const response = await fetch(`/api/deleteItem/${firstId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ids: Array.from(selectedItems),
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error("Error deleting items:", data.message);
+        return;
       }
+
+      console.log(data.message);
+      setSelectedItems(new Set());
+      setIsMultiSelectMode(false);
+      await loadPortfolio();
     } catch (error) {
       console.error("Error deleting items:", error);
     }
