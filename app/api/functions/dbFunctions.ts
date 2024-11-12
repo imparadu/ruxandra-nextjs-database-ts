@@ -12,7 +12,6 @@ export async function fetchPortfolio() {
     const data = await response.json();
 
     if (response.ok) {
-      console.log("din dbfunctions", data.portfolio.rows);
       return data.portfolio.rows;
     } else {
       console.error("Error fetching portfolio:", data.error);
@@ -23,23 +22,3 @@ export async function fetchPortfolio() {
     return [];
   }
 }
-
-// export async function handleDelete(id: string) {
-//   try {
-//     const response = await fetch(`${API_BASE_URL}/api/deleteItem/${id}`, {
-//       method: "DELETE",
-//     });
-
-//     if (response.ok) {
-//       console.log("asta e dbfunctions");
-//       revalidatePath("/admin/portfolio"); // Update this to the correct path
-//       return true;
-//     } else {
-//       console.error("Error deleting item:", await response.text());
-//       return false;
-//     }
-//   } catch (error) {
-//     console.error("Error deleting item:", error);
-//     return false;
-//   }
-// }

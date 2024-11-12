@@ -35,6 +35,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     >
       <Image
         src={product.imgurl}
+        placeholder="blur"
+        blurDataURL={product.imgurl}
         alt={product.alt}
         width={product.width}
         height={product.height}
