@@ -1,24 +1,24 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import { sql } from "@vercel/postgres";
 import { deleteObject, ref } from "firebase/storage";
 import { storage } from "@/app/lib/firebaseConfig";
 
-export interface DeleteItemContext {
-  params: { id: string };
-}
-
-export async function DELETE(req: NextRequest, ctx: DeleteItemContext) {
+// Define the handler as a standalone function with explicit typing
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } },
+): Promise<Response> {
   try {
     // Await params first before using any of its properties
-    const params = await Promise.resolve(ctx.params);
+    const { id } = await Promise.resolve(params);
 
     // Check if it's a batch delete request
-    const contentType = req.headers.get("content-type");
+    const contentType = request.headers.get("content-type");
     let ids: string[] = [];
 
     if (contentType?.includes("application/json")) {
       try {
-        const body = await req.text();
+        const body = await request.text();
         if (body) {
           const { ids: batchIds } = JSON.parse(body);
           if (Array.isArray(batchIds) && batchIds.length > 0) {
@@ -32,8 +32,7 @@ export async function DELETE(req: NextRequest, ctx: DeleteItemContext) {
 
     // If no batch IDs, use the single ID from params
     if (ids.length === 0) {
-      // params is already awaited above
-      ids = [params.id];
+      ids = [id];
     }
 
     // Query to get the image URLs
@@ -46,7 +45,10 @@ export async function DELETE(req: NextRequest, ctx: DeleteItemContext) {
     const { rows } = await sql.query(selectQuery, [ids]);
 
     if (rows.length === 0) {
-      return NextResponse.json({ message: "No items found" }, { status: 404 });
+      return new Response(JSON.stringify({ message: "No items found" }), {
+        status: 404,
+        headers: { "Content-Type": "application/json" },
+      });
     }
 
     // Delete from database
@@ -73,15 +75,24 @@ export async function DELETE(req: NextRequest, ctx: DeleteItemContext) {
 
     await Promise.all(deletePromises);
 
-    return NextResponse.json(
-      { message: "Items deleted successfully" },
-      { status: 200 },
+    return new Response(
+      JSON.stringify({ message: "Items deleted successfully" }),
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      },
     );
   } catch (error) {
     console.error("Error deleting item(s):", error);
-    return NextResponse.json(
-      { message: "Error deleting item(s)", error: (error as Error).message },
-      { status: 500 },
+    return new Response(
+      JSON.stringify({
+        message: "Error deleting item(s)",
+        error: (error as Error).message,
+      }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      },
     );
   }
 }
