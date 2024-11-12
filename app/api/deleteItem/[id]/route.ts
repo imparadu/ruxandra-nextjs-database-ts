@@ -3,15 +3,14 @@ import { sql } from "@vercel/postgres";
 import { deleteObject, ref } from "firebase/storage";
 import { storage } from "@/app/lib/firebaseConfig";
 
-interface Params {
-  id: string;
-}
-
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: Params },
+  context: { params: Record<string, string> },
 ) {
   try {
+    // Await params first before using any of its properties
+    const params = await Promise.resolve(context.params);
+
     // Check if it's a batch delete request
     const contentType = request.headers.get("content-type");
     let ids: string[] = [];
@@ -32,9 +31,8 @@ export async function DELETE(
 
     // If no batch IDs, use the single ID from params
     if (ids.length === 0) {
-      // Await the params.id
-      const { id } = await Promise.resolve(params);
-      ids = [id];
+      // params is already awaited above
+      ids = [params.id];
     }
 
     // Query to get the image URLs
