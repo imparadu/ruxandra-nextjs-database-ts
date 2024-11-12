@@ -5,7 +5,7 @@ import { storage } from "@/app/lib/firebaseConfig";
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: { id: string } }
 ) {
   // This should remain as is
   try {
