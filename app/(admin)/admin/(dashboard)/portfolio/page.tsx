@@ -163,7 +163,7 @@ export default function Page() {
 
     try {
       const firstId = Array.from(selectedItems)[0];
-      const response = await fetch(`/api/deleteItem/${firstId}`, {
+      const response = await fetch(`/api/deleteItem/batch`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

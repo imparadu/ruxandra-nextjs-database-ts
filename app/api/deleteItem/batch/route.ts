@@ -3,24 +3,35 @@ import { sql } from "@vercel/postgres";
 import { deleteObject, ref } from "firebase/storage";
 import { storage } from "@/app/lib/firebaseConfig";
 
-type Params = Promise<{ id: string }>
-
-export async function DELETE(request: NextRequest, { params } : { params : Params}) {
+export async function DELETE(request: NextRequest): Promise<Response> {
   try {
+    const body = await request.json();
+    const { ids } = body;
 
-    const { id } = await params;
+    if (!Array.isArray(ids) || ids.length === 0) {
+      return new Response(
+        JSON.stringify({ message: "Invalid or empty ids array" }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        },
+      );
+    }
+
+    // Format the array for postgres using ARRAY constructor
+    const formattedIds = `{${ids.map((id) => `"${id}"`).join(",")}}`;
 
     // Query to get the image URLs
     const selectQuery = `
       SELECT id, imgurl
       FROM portfolio
-      WHERE id = $1
+      WHERE id = ANY($1::uuid[])
     `;
 
-    const { rows } = await sql.query(selectQuery, [id]);
+    const { rows } = await sql.query(selectQuery, [formattedIds]);
 
     if (rows.length === 0) {
-      return new Response(JSON.stringify({ message: "No item found" }), {
+      return new Response(JSON.stringify({ message: "No items found" }), {
         status: 404,
         headers: { "Content-Type": "application/json" },
       });
@@ -29,10 +40,10 @@ export async function DELETE(request: NextRequest, { params } : { params : Param
     // Delete from database
     const deleteQuery = `
       DELETE FROM portfolio
-      WHERE id = $1
+      WHERE id = ANY($1::uuid[])
     `;
 
-    await sql.query(deleteQuery, [id]);
+    await sql.query(deleteQuery, [formattedIds]);
 
     // Delete from Firebase Storage
     const deletePromises = rows.map(async (row) => {
@@ -51,17 +62,17 @@ export async function DELETE(request: NextRequest, { params } : { params : Param
     await Promise.all(deletePromises);
 
     return new Response(
-      JSON.stringify({ message: "Item deleted successfully" }),
+      JSON.stringify({ message: "Items deleted successfully" }),
       {
         status: 200,
         headers: { "Content-Type": "application/json" },
       },
     );
   } catch (error) {
-    console.error("Error deleting item:", error);
+    console.error("Error deleting items:", error);
     return new Response(
       JSON.stringify({
-        message: "Error deleting item",
+        message: "Error deleting items",
         error: (error as Error).message,
       }),
       {
