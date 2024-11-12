@@ -3,18 +3,17 @@ import { sql } from "@vercel/postgres";
 import { deleteObject, ref } from "firebase/storage";
 import { storage } from "@/app/lib/firebaseConfig";
 
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  // This should remain as is
+interface RouteParams {
+  params: Promise<{ id: string }>;
+}
+
+export async function DELETE(request: NextRequest, context: RouteParams) {
   try {
     // Check if it's a batch delete request
     const contentType = request.headers.get("content-type");
     if (contentType?.includes("application/json")) {
       const { ids } = await request.json();
       if (Array.isArray(ids) && ids.length > 0) {
-        // Handle batch delete
         const query = `
           SELECT id, imgurl
           FROM portfolio
@@ -61,18 +60,32 @@ export async function DELETE(
       }
     }
 
-    // Handle single item delete (existing functionality)
-    const id = params.id;
-    const { rows } = await sql`SELECT imgurl FROM portfolio WHERE id = ${id}`;
+    // Handle single item delete
+    // Wait for the params to be available
+    const { id } = await context.params;
 
-    if (rows.length === 0) {
+    if (!id) {
+      return NextResponse.json({ message: "No ID provided" }, { status: 400 });
+    }
+
+    // Query to get the image URL
+    const result = await sql`
+      SELECT imgurl
+      FROM portfolio
+      WHERE id = ${id}::uuid
+    `;
+
+    if (result.rows.length === 0) {
       return NextResponse.json({ message: "Item not found" }, { status: 404 });
     }
 
-    const imgUrl = rows[0].imgurl;
+    const imgUrl = result.rows[0].imgurl;
 
     // Delete from database
-    await sql`DELETE FROM portfolio WHERE id = ${id}`;
+    await sql`
+      DELETE FROM portfolio
+      WHERE id = ${id}::uuid
+    `;
 
     // Delete from Firebase Storage
     try {
