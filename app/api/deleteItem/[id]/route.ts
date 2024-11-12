@@ -3,22 +3,22 @@ import { sql } from "@vercel/postgres";
 import { deleteObject, ref } from "firebase/storage";
 import { storage } from "@/app/lib/firebaseConfig";
 
-type Props = {
+export interface DeleteItemContext {
   params: { id: string };
-};
+}
 
-export async function DELETE(request: NextRequest, props: Props) {
+export async function DELETE(req: NextRequest, ctx: DeleteItemContext) {
   try {
     // Await params first before using any of its properties
-    const params = await Promise.resolve(props.params);
+    const params = await Promise.resolve(ctx.params);
 
     // Check if it's a batch delete request
-    const contentType = request.headers.get("content-type");
+    const contentType = req.headers.get("content-type");
     let ids: string[] = [];
 
     if (contentType?.includes("application/json")) {
       try {
-        const body = await request.text();
+        const body = await req.text();
         if (body) {
           const { ids: batchIds } = JSON.parse(body);
           if (Array.isArray(batchIds) && batchIds.length > 0) {
