@@ -5,9 +5,9 @@ import { storage } from "@/app/lib/firebaseConfig";
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: Record<string, string> },
+  { params }: { params: { id: string } },
 ) {
-  // Adjusted type
+  // Keep this as is
   try {
     // Check if it's a batch delete request
     const contentType = request.headers.get("content-type");
