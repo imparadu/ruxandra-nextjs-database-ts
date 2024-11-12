@@ -3,10 +3,13 @@ import { sql } from "@vercel/postgres";
 import { deleteObject, ref } from "firebase/storage";
 import { storage } from "@/app/lib/firebaseConfig";
 
-// Using the correct Next.js types for route handlers
+interface Params {
+  id: string;
+}
+
 export async function DELETE(
   request: NextRequest,
-  context: { params: { id: string } }, // This is the correct type for Next.js route params
+  { params }: { params: Params },
 ) {
   try {
     // Check if it's a batch delete request
@@ -29,7 +32,7 @@ export async function DELETE(
 
     // If no batch IDs, use the single ID from params
     if (ids.length === 0) {
-      ids = [context.params.id];
+      ids = [params.id];
     }
 
     // Query to get the image URLs
