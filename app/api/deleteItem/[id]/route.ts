@@ -7,7 +7,7 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } },
 ) {
-  // Keep this as is
+  // This should remain as is
   try {
     // Check if it's a batch delete request
     const contentType = request.headers.get("content-type");
