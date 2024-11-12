@@ -32,7 +32,9 @@ export async function DELETE(
 
     // If no batch IDs, use the single ID from params
     if (ids.length === 0) {
-      ids = [params.id];
+      // Await the params.id
+      const { id } = await Promise.resolve(params);
+      ids = [id];
     }
 
     // Query to get the image URLs
