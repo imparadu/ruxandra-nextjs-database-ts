@@ -48,6 +48,10 @@ export default function PortfolioPage() {
               onDelete={function (id: string): void {
                 throw new Error("Function not implemented.");
               }}
+              onSelect={function (product: PortfolioItem): void {
+                throw new Error("Function not implemented.");
+              }}
+              isSelected={false}
             />
           ))}
         </div>

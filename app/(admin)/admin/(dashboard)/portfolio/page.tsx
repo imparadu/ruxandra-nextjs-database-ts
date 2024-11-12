@@ -97,6 +97,7 @@ const SortableItem = ({
         onDelete={onDelete}
         onSelect={onSelect}
         isSelected={isSelected}
+        isAdmin={true}
       />
     </div>
   );

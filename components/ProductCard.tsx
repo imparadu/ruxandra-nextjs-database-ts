@@ -4,9 +4,10 @@ import { PortfolioItem } from "@/app/api/addItem/data_types";
 
 interface ProductCardProps {
   product: PortfolioItem;
-  onDelete: (id: string) => void;
-  onSelect: (product: PortfolioItem) => void;
-  isSelected: boolean;
+  onDelete?: (id: string) => void;
+  onSelect?: (product: PortfolioItem) => void;
+  isSelected?: boolean;
+  isAdmin?: boolean;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({
@@ -14,24 +15,23 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   onDelete,
   onSelect,
   isSelected,
+  isAdmin = false,
 }) => {
-  const handleClick = () => {
-    onSelect(product);
-  };
-
   const handleDelete = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (window.confirm("Are you sure you want to delete this item?")) {
+    if (
+      window.confirm("Are you sure you want to delete this item?") &&
+      onDelete
+    ) {
       onDelete(product.id);
     }
   };
-
   return (
     <div
       className={`relative mb-4 cursor-pointer transition-all ${
         isSelected ? "ring-2 ring-blue-500" : ""
       }`}
-      onClick={handleClick}
+      onClick={isAdmin ? () => onSelect!(product) : undefined}
     >
       <Image
         src={product.imgurl}
