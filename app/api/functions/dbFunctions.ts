@@ -1,14 +1,10 @@
 "use server";
 
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL ||
-  "https://ruxandra-nextjs-database-ts.vercel.app";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function fetchPortfolio() {
   try {
-    const response = await fetch(
-      `${API_BASE_URL}/api/get-portfolio`,
-    );
+    const response = await fetch(`${API_BASE_URL}/api/get-portfolio`);
     const data = await response.json();
 
     if (response.ok) {
