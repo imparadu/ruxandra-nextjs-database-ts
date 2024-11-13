@@ -12,17 +12,19 @@ use whimsical wireframe for admin panel:
 - css poze dimensiune mai mare in xxl screen + hover efect pe poze
 
 
-1. refresh la portfolio on adding a picture DONE
-2. sters poze si din bucket on delete - delete rules in firebase de rezolvat - luni
-3. rezolvat orice erori - favicon samd - luni
-4. css main site si admin panel - luni - https://nextjs-shopify-store-ruxandra.vercel.app/
+1. site
+a. portfolio - css
+b. sketchbook - load sketchbook din db
+              - apply same css
+c. contact - form functionality
+           - css
+d. shop - later
 
-5. livrat ruxandrei si luat feedback - rezolvat probleme/buguri - marti
+2. admin - delete refresh data button
+      - containers css
+      - after delete, clear edit form
+      - clean-up code of clgs and unnecessary code
 
-6. edit
-7. shop
-- product card update
-- cart
 
 
 
