@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function AdminNav() {
   return (
     <>
-      <div className="flex flex-col items-start mr-5 ml-2">
+      <div className="flex flex-col items-start mr-5 ml-5 my-10">
         <Link
           href="/admin/portfolio"
           className="flex min-w-16 min-h-8 align-bottom items-center pt-2"
@@ -20,7 +20,7 @@ export default function AdminNav() {
               clipRule="evenodd"
             />
           </svg>
-          <p className="pl-2 text-blue-500 font-semibold underline underline-offset-4 decoration-indigo-200 decoration-2 hover:decoration-indigo-300 hover:text-blue-700">
+          <p className="pl-2 text-xl text-blue-500 font-semibold underline underline-offset-4 decoration-indigo-200 decoration-2 hover:decoration-indigo-300 hover:text-blue-700">
             Portfolio
           </p>
         </Link>
@@ -40,7 +40,7 @@ export default function AdminNav() {
               clipRule="evenodd"
             />
           </svg>
-          <p className="pl-2 text-blue-500 font-semibold underline underline-offset-4 decoration-indigo-200 decoration-2 hover:decoration-indigo-300 hover:text-blue-700">
+          <p className="pl-2 text-xl text-blue-500 font-semibold underline underline-offset-4 decoration-indigo-200 decoration-2 hover:decoration-indigo-300 hover:text-blue-700">
             Sketchbook
           </p>
         </Link>
@@ -60,7 +60,7 @@ export default function AdminNav() {
               clipRule="evenodd"
             />
           </svg>
-          <p className="pl-2 text-blue-500 font-semibold underline underline-offset-4 decoration-indigo-200 decoration-2 hover:decoration-indigo-300 hover:text-blue-700">
+          <p className="pl-2 text-xl text-blue-500 font-semibold underline underline-offset-4 decoration-indigo-200 decoration-2 hover:decoration-indigo-300 hover:text-blue-700">
             Shop
           </p>
         </Link>

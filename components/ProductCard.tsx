@@ -28,7 +28,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   };
   return (
     <div
-      className={`relative mb-4 cursor-pointer transition-all ${
+      className={`relative cursor-pointer transition-all mb-3 ${
         isSelected ? "ring-2 ring-blue-500" : ""
       }`}
       onClick={isAdmin ? () => onSelect!(product) : undefined}

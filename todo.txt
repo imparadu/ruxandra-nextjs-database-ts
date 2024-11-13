@@ -21,9 +21,11 @@ c. contact - form functionality
 d. shop - later
 
 2. admin - delete refresh data button
-      - containers css
-      - after delete, clear edit form
+      - each containers css
+      - when one item is selected, if multiselect is pressed it doesn't deselect the single item selected
+      - after selecting and deleting an item, clear edit form
       - clean-up code of clgs and unnecessary code
+      - setup routes for sketchbook and shop dbs
 
 
 

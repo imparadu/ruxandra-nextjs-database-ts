@@ -73,7 +73,7 @@ const SortableItem = ({
     <div
       ref={setNodeRef}
       style={style}
-      className={`relative group break-inside-avoid mb-4 ${
+      className={`relative group break-inside-avoid ${
         isMultiSelected ? "ring-2 ring-blue-500" : ""
       }`}
       onClick={() => isMultiSelectMode && onMultiSelect(id)}
@@ -268,15 +268,9 @@ export default function Page() {
 
   return (
     <AuthProvider>
-      <div className="justify-center flex flex-col bg-slate-300 max-w-3xl">
-        <div className="flex justify-between p-4">
+      <div className="justify-center flex flex-col bg-slate-100 max-w-3xl">
+        <div className="flex justify-between my-4 mx-3">
           <div className="flex gap-2">
-            <button
-              onClick={handleRefresh}
-              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
-            >
-              Refresh Data
-            </button>
             <button
               onClick={toggleMultiSelectMode}
               className="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600 transition-colors"
@@ -284,7 +278,7 @@ export default function Page() {
               {isMultiSelectMode ? "Exit Multi-Select" : "Multi-Select"}
             </button>
           </div>
-          <div className="flex gap-2">
+          <div className="flex">
             {isMultiSelectMode && selectedItems.size > 0 && (
               <button
                 onClick={handleMultiDelete}
@@ -315,7 +309,7 @@ export default function Page() {
           collisionDetection={closestCenter}
           onDragEnd={handleDragEnd}
         >
-          <div className="xxs:columns-1 xxs:mx-0 xs:columns-1 xs:mx-0 s:columns-2 md:columns-3 lg:columns-4 gap-0 mx-0">
+          <div className="xxs:columns-1 xxs:mx-0 xs:columns-1 xs:mx-0 s:columns-2 md:columns-3 lg:columns-4 gap-x-3 mx-3">
             <SortableContext
               items={portfolioData.map((item) => item.id)}
               strategy={rectSortingStrategy}
