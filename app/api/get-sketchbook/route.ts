@@ -3,9 +3,9 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const portfolio = await sql`SELECT * FROM portfolio;`;
-    const sketchbook = await sql`SELECT * FROM sketchbook;`;
-    return NextResponse.json({ portfolio, sketchbook });
+    const sketchbook =
+      await sql`SELECT * FROM products WHERE type = 'sketchbook';`;
+    return NextResponse.json({ sketchbook });
   } catch (error) {
     return NextResponse.json({ error: error }, { status: 500 });
   }

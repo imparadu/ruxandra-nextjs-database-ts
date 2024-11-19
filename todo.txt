@@ -29,6 +29,13 @@ d. shop - later
 
 
 
+new product table in db :
+add new column "type" - portfolio/ sketchbook string
+
+in rute api:
+2 route : get-portfolio  get-sketchbook care primesc query params "type"
+
+
 
 
 
