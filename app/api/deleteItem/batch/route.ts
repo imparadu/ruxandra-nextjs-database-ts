@@ -24,7 +24,7 @@ export async function DELETE(request: NextRequest): Promise<Response> {
     // Query to get the image URLs
     const selectQuery = `
       SELECT id, imgurl
-      FROM portfolio
+      FROM products
       WHERE id = ANY($1::uuid[])
     `;
 
@@ -39,7 +39,7 @@ export async function DELETE(request: NextRequest): Promise<Response> {
 
     // Delete from database
     const deleteQuery = `
-      DELETE FROM portfolio
+      DELETE FROM products
       WHERE id = ANY($1::uuid[])
     `;
 

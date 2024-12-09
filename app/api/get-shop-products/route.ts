@@ -3,8 +3,8 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const sketchbook = await sql`SELECT * FROM products WHERE type = 'sketchbook';`;
-    return NextResponse.json({ sketchbook });
+    const shop = await sql`SELECT * FROM products WHERE type = 'shop';`;
+    return NextResponse.json({ shop });
   } catch (error) {
     return NextResponse.json({ error: error }, { status: 500 });
   }

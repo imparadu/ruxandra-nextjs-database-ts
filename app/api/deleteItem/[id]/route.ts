@@ -3,17 +3,19 @@ import { sql } from "@vercel/postgres";
 import { deleteObject, ref } from "firebase/storage";
 import { storage } from "@/app/lib/firebaseConfig";
 
-type Params = Promise<{ id: string }>
+type Params = Promise<{ id: string }>;
 
-export async function DELETE(request: NextRequest, { params } : { params : Params}) {
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Params },
+) {
   try {
-
     const { id } = await params;
 
     // Query to get the image URLs
     const selectQuery = `
       SELECT id, imgurl
-      FROM portfolio
+      FROM products
       WHERE id = $1
     `;
 
@@ -28,7 +30,7 @@ export async function DELETE(request: NextRequest, { params } : { params : Param
 
     // Delete from database
     const deleteQuery = `
-      DELETE FROM portfolio
+      DELETE FROM products
       WHERE id = $1
     `;
 

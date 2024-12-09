@@ -40,7 +40,7 @@ export async function PUT(request: Request, { params }: { params: Params }) {
     }
 
     const result = await sql`
-      UPDATE portfolio
+      UPDATE products
       SET
         title = ${data.title},
         price = ${price},
@@ -82,7 +82,7 @@ export async function GET(
   try {
     const {id} = await params;
     const result = await sql`
-      SELECT * FROM portfolio
+      SELECT * FROM products
       WHERE id = ${id}
     `;
 

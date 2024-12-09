@@ -14,7 +14,7 @@ export async function PUT(request: Request) {
     // Update all positions in a single query
     for (const item of items) {
       await sql`
-        UPDATE portfolio
+        UPDATE products
         SET
           position = ${item.position},
           updated_at = NOW()
