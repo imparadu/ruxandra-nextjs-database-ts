@@ -8,12 +8,14 @@ interface AddPicFormProps {
   onSave: () => Promise<void>;
   selectedItem?: PortfolioItem | null;
   onClearSelection?: () => void;
+  type: "portfolio" | "sketchbook" | "shop" ;
 }
 
 export default function AddPicForm({
   onSave,
   selectedItem,
   onClearSelection,
+  type
 }: AddPicFormProps) {
   const initialFormState = useMemo(
     () => ({
@@ -100,7 +102,7 @@ export default function AddPicForm({
       // Handle file upload if there's a new file
       if (inputRef.current?.files?.length) {
         const file = inputRef.current.files[0];
-        const fileRef = ref(storage, `portfolio/${file.name}`);
+        const fileRef = ref(storage, `${type}/${file.name}`);
         await uploadBytes(fileRef, file);
         imgUrl = await getDownloadURL(fileRef);
       }
@@ -114,6 +116,7 @@ export default function AddPicForm({
         width: formData.width,
         height: formData.height,
         alt: formData.alt,
+        type: type,
       };
 
       const endpoint = selectedItem

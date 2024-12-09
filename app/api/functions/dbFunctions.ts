@@ -18,3 +18,20 @@ export async function fetchPortfolio() {
     return [];
   }
 }
+
+export async function fetchSketchbook() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/get-sketchbook`);
+    const data = await response.json();
+
+    if (response.ok) {
+      return data.sketchbook.rows;
+    } else {
+      console.error("Error fetching portfolio:", data.error);
+      return [];
+    }
+  } catch (error) {
+    console.error("Error fetching portfolio:", error);
+    return [];
+  }
+}

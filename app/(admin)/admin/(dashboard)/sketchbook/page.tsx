@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { ProductCard } from "@/components/ProductCard";
 import { AuthProvider } from "@/context/AuthContext";
 import { PortfolioItem } from "@/app/api/addItem/data_types";
-import { fetchPortfolio } from "@/app/api/functions/dbFunctions";
+import {  fetchSketchbook } from "@/app/api/functions/dbFunctions";
 import AddPicForm from "@/components/AddPicForm";
 import {
   DndContext,
@@ -108,7 +108,7 @@ export default function Page() {
 
   const loadPortfolio = async () => {
     setLoading(true);
-    const data = await fetchPortfolio();
+    const data = await fetchSketchbook();
     const sortedData = data
       .map((item: PortfolioItem, index: number) => ({
         ...item,
@@ -253,6 +253,7 @@ export default function Page() {
         onSave={handleRefresh}
         selectedItem={selectedItem}
         onClearSelection={() => setSelectedItem(null)}
+        type="sketchbook"
       />
     </AuthProvider>
   );

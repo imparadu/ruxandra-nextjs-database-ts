@@ -10,6 +10,7 @@ export interface Picture {
   created_at: Date;
   updated_at: Date;
   position: number;
+  type: string;
 }
 
 export type NewPicture = Omit<Picture, "id" | "created_at" | "updated_at">;

@@ -336,6 +336,7 @@ export default function Page() {
         onSave={handleRefresh}
         selectedItem={selectedItem}
         onClearSelection={() => setSelectedItem(null)}
+        type = "portfolio"
       />
     </AuthProvider>
   );

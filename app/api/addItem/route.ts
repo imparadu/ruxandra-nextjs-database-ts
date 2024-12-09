@@ -3,13 +3,22 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   const body = await request.json();
-  const { title, price, currency, imgUrl, width, height, alt } = body;
+  const { title, price, currency, imgUrl, width, height, alt, type } = body;
 
   try {
     // Validate required fields
-    if (!title || !price || !currency || !imgUrl || !width || !height || !alt) {
+    if (
+      !title ||
+      !price ||
+      !currency ||
+      !imgUrl ||
+      !width ||
+      !height ||
+      !alt ||
+      !type
+    ) {
       throw new Error(
-        "All fields (title, price, currency, imgUrl, width, height, alt) are required.",
+        "All fields (title, price, currency, imgUrl, width, height, alt, type) are required.",
       );
     }
 
@@ -25,12 +34,13 @@ export async function POST(request: Request) {
 
     // Insert into the portfolio table
     await sql`
-      INSERT INTO portfolio (title, price, currency, imgurl, width, height, alt)
-      VALUES (${title}, ${numericPrice}, ${currency}, ${imgUrl}, ${numericWidth}, ${numericHeight}, ${alt});
+      INSERT INTO products (title, price, currency, imgurl, width, height, alt, type)
+      VALUES (${title}, ${numericPrice}, ${currency}, ${imgUrl}, ${numericWidth}, ${numericHeight}, ${alt}, ${type});
     `;
 
     // Fetch all portfolio entries
-    const portfolio = await sql`SELECT * FROM portfolio;`;
+    const portfolio =
+      await sql`SELECT * FROM products WHERE type = 'portfolio';`;
     return NextResponse.json({ portfolio }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: error }, { status: 500 });
