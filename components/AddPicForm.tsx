@@ -8,14 +8,16 @@ interface AddPicFormProps {
   onSave: () => Promise<void>;
   selectedItem?: PortfolioItem | null;
   onClearSelection?: () => void;
-  type: "portfolio" | "sketchbook" | "shop" ;
+  type: "portfolio" | "sketchbook" | "shop";
+  portfolioLength?: number;
 }
 
 export default function AddPicForm({
   onSave,
   selectedItem,
   onClearSelection,
-  type
+  type,
+  portfolioLength,
 }: AddPicFormProps) {
   const initialFormState = useMemo(
     () => ({
@@ -29,7 +31,6 @@ export default function AddPicForm({
     }),
     [],
   );
-
   const [formData, setFormData] = useState(initialFormState);
   const [thumbnail, setThumbnail] = useState<string | null>(null);
   const [responseMessage, setResponseMessage] = useState("");
@@ -42,6 +43,10 @@ export default function AddPicForm({
     () => initialFormState,
     [initialFormState],
   );
+
+  useEffect(() => {
+    resetForm()
+  }, [portfolioLength]);
 
   useEffect(() => {
     if (selectedItem) {

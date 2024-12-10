@@ -111,6 +111,8 @@ export default function Page() {
   const [isMultiSelectMode, setIsMultiSelectMode] = useState(false);
   const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set());
 
+  console.log("portfolio data = ", portfolioData, portfolioData.length)
+
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -337,6 +339,7 @@ export default function Page() {
         selectedItem={selectedItem}
         onClearSelection={() => setSelectedItem(null)}
         type = "portfolio"
+        portfolioLength = {portfolioData.length}
       />
     </AuthProvider>
   );

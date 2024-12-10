@@ -23,17 +23,17 @@ d. shop - later
 2. admin - delete refresh data button
       - each containers css
       - when one item is selected, if multiselect is pressed it doesn't deselect the single item selected
-      - after selecting and deleting an item, clear edit form
+      - after selecting and deleting an item, clear edit form - daca se schimba in parinte ceva , reset form - DONE
       - clean-up code of clgs and unnecessary code
       - setup routes for sketchbook and shop dbs
 
 
 
 new product table in db :
-add new column "type" - portfolio/ sketchbook string
+add new column "type" - portfolio/ sketchbook string - DONE
 
 in rute api:
-2 route : get-portfolio  get-sketchbook care primesc query params "type"
+2 route : get-portfolio  get-sketchbook care primesc query params "type" - DONE
 
 
 
