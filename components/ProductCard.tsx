@@ -42,13 +42,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         height={product.height}
         className="w-full h-auto object-cover"
       />
-      <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-2">
-        <p>{product.title}</p>
-        <p className="text-sm">
-          {product.price} {product.currency}
-        </p>
-      </div>
-      {isSelected && (
+      {isAdmin && (
+        <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-2">
+          <p>{product.title}</p>
+          <p className="text-sm">
+            {product.price} {product.currency}
+          </p>
+        </div>
+      )}
+      {isAdmin && isSelected &&(
         <button
           className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 transition-colors"
           onClick={handleDelete}

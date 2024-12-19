@@ -51,4 +51,4 @@ deselect la click in afara pozei?
 deselect la click pe multi-select sau edit mode
 multi select poate redenumit in batch delete (doar asta face)
 site:
-editat product card sa afiseze doar poza, fara titlu si pret etc
+editat product card sa afiseze doar poza, fara titlu si pret etc - DONE
